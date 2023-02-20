@@ -1,0 +1,52 @@
+<div class="bg-gray-100">
+  <nav class="bg-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between">
+        <div class="flex space-x-4">
+          <a
+            href="{{ url_for('articles.homepage') }}"
+            class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900"
+          >
+            <svg
+              class="h-6 w-6 fill-current"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 4a4 4 0 0 1 4 4c0 2.21-1.79 4-4 4s-4-1.79-4-4a4 4 0 0 1 4-4m0 10c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4m0-8c-2.67 0-8 1.34-8 4s5.33 4 8 4 8-1.34 8-4-5.33-4-8-4z"
+              />
+            </svg>
+            <span class="font-bold">Blogger Trying</span>
+          </a>
+          <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900"
+            >Home</a
+          >
+          <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900"
+            >Settings</a
+          >
+        </div>
+        <div class="flex space-x-4">
+          {% if current_user.is_authenticated%}
+          <span class="py-5 px-3">{{ current_user.username | title }}</span>
+          <a
+            href="{{ url_for('auth.logout') }}"
+            class="py-5 px-3 text-gray-700 hover:text-gray-900"
+            >Logout</a
+          >
+          {% else %}
+          <a
+            href="{{ url_for('auth.login_page') }}"
+            class="py-5 px-3 text-gray-700 hover:text-gray-900 font-bold"
+            >Login</a
+          >
+          <a
+            href="{{ url_for('auth.register_page') }}"
+            class="py-5 px-3 bg-blue-700 text-white font-bold"
+            >Register</a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

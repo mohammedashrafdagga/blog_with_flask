@@ -4,11 +4,11 @@ from flask import (
 
 from .models import User
 from database import db_session
-
+from flask_login import login_user
 
 
 # user app
-auth_app = Blueprint('user', __name__, url_prefix = '/auth')
+auth_app = Blueprint('auth', __name__, url_prefix = '/auth')
 
 
 # Login_page Method 
@@ -24,16 +24,17 @@ def login_page():
         
         if user is None:
             flash('user is not founded', 'error')
-            return redirect(url_for('user.login_page'))
+            return redirect(url_for('auth.login_page'))
         elif not user.check_password(password):
             flash('Invalid email or password', 'error')
-            return redirect(url_for('user.login_page'))
+            return redirect(url_for('auth.login_page'))
         else: 
             session.clear()
+            login_user(user)
             session['user_id'] = user.id
             return redirect(url_for('articles.homepage'))
     
-    return render_template('pages/login.html')
+    return render_template('auth_app/login.html')
     
     
     
@@ -47,7 +48,7 @@ def register_page():
         existing_user = User.query.filter_by(email=email, username = username).first()
         if existing_user is not None:
             flash('Email address is already in use', 'error')
-            return redirect(url_for('user.register_page'))
+            return redirect(url_for('auth.register_page'))
 
         name = request.form['name']
         password = request.form['password']
@@ -55,7 +56,7 @@ def register_page():
         # Create a new user object and add it to the database
         if password != password1:
             flash('Email address is already in use', 'error')
-            return redirect(url_for('user.register_page'))
+            return redirect(url_for('auth.register_page'))
         
         new_user = User(email=email,username = username, name = name,  password=password)
         db_session.add(new_user)
@@ -63,8 +64,19 @@ def register_page():
 
         # Log the user in
         session.clear()
+        login_user(new_user)
         session['user_id'] = new_user.id
 
         # Redirect the user to the appropriate page
         return redirect(url_for('articles.homepage'))
-    return render_template('pages/register.html')
+    return render_template('auth_app/register.html')
+
+
+
+@auth_app.route('/logout')
+def logout():
+    # Clear the session data
+    session.clear()
+
+    # Redirect the user to the appropriate page
+    return redirect(url_for('articles.homepage'))

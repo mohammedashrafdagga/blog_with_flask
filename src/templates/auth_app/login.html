@@ -2,26 +2,14 @@
 
 <!-- content -->
 {% block content %}
-<div class="bg-gray-100 flex items-center justify-center min-h-screen py-4">
+<div class="bg-gray-100 flex items-center justify-center min-h-screen">
   <div
     class="max-w-2xl mx-auto bg-white p-5 rounded-md shadow-sm w-full lg:w-3/4 xl:w-2/3"
   >
     <h2 class="text-center text-2xl font-bold mb-5">
-      Create Your Account into Blog Web Application
+      Login to Your Account in Blog Web Application
     </h2>
     <form method="POST" action="">
-      <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2" for="name">
-          Name
-        </label>
-        <input
-          class="border border-gray-400 p-2 w-full"
-          type="text"
-          name="name"
-          id="name"
-          required
-        />
-      </div>
       <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="email">
           Email Address
@@ -31,18 +19,6 @@
           type="email"
           name="email"
           id="email"
-          required
-        />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2" for="username">
-          Username
-        </label>
-        <input
-          class="border border-gray-400 p-2 w-full"
-          type="text"
-          name="username"
-          id="username"
           required
         />
       </div>
@@ -59,33 +35,18 @@
         />
       </div>
       <div class="mb-4">
-        <label
-          class="block text-gray-700 font-bold mb-2"
-          for="confirm-password"
-        >
-          Confirm Password
-        </label>
-        <input
-          class="border border-gray-400 p-2 w-full"
-          type="password"
-          name="confirm-password"
-          id="confirm-password"
-          required
-        />
-      </div>
-      <div class="mb-4">
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
           type="submit"
         >
-          Register
+          Login
         </button>
         <div class="text-gray-600 my-2">
-          <span>Already have an account?</span>
+          <span>Already you don't have an account?</span>
           <a
-            href="{{ url_for('user.login_page') }}"
+            href="{{ url_for('auth.register_page') }}"
             class="ml-1 hover:text-blue-500"
-            >Login</a
+            >register</a
           >
         </div>
       </div>
